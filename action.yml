@@ -1,0 +1,11 @@
+name: 'maven-full-artifacts'
+description: 'Publish importable maven pom&jars as a github artifact'
+author: 'Davy Landman (SWAT.engineering)'
+inputs:
+  maven-options:
+    required: false
+    description: 'Extra maven options'
+    default: ''
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
