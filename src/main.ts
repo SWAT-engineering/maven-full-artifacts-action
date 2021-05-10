@@ -30,16 +30,14 @@ async function run(): Promise<void> {
 
     const refs = github.context.ref.split('/')
     let artifactName = `${github.context.repo.repo}-${refs[2]}`
-    if (refs[1] !== "tags") {
+    if (refs[1] !== 'tags') {
       artifactName += `-${github.context.sha}`
     }
 
     core.info('Uploading results as artifact')
-    const uploadResult = await artifact
-      .create()
-      .uploadArtifact(artifactName, readFiles(localDir), localDir, {
-        continueOnError: false
-      })
+    const uploadResult = await artifact.create().uploadArtifact(artifactName, readFiles(localDir), localDir, {
+      continueOnError: false
+    })
 
     if (uploadResult.failedItems.length > 0) {
       throw new Error(`Error uploading artifact, failed files: ${uploadResult.failedItems}`)
