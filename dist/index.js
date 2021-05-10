@@ -45,7 +45,7 @@ const fs_1 = __webpack_require__(5747);
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const localDir = `/tmp/artifacts-maven-${github.context.ref}`;
+            const localDir = `/tmp/artifacts-maven-${github.context.sha}`;
             yield io.mkdirP(localDir);
             const localMavenRepo = `local::default::file://${localDir}`;
             core.info('Running maven deploy');
@@ -54,7 +54,8 @@ function run() {
                 core.getInput('maven-options'),
                 '-DskipTests',
                 `-DaltDeploymentRepository=${localMavenRepo}`,
-                `-DaltReleaseDeploymentRepository=${localMavenRepo}`
+                `-DaltReleaseDeploymentRepository=${localMavenRepo}`,
+                'deploy'
             ]);
             if (mavenResult !== 0) {
                 core.setFailed(`Maven failed with error: ${mavenResult}`);

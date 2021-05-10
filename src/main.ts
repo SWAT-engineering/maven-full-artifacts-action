@@ -7,7 +7,7 @@ import {lstatSync, readdirSync} from 'fs'
 
 async function run(): Promise<void> {
   try {
-    const localDir = `/tmp/artifacts-maven-${github.context.ref}`
+    const localDir = `/tmp/artifacts-maven-${github.context.sha}`
     await io.mkdirP(localDir)
     const localMavenRepo = `local::default::file://${localDir}`
     core.info('Running maven deploy')
@@ -16,7 +16,8 @@ async function run(): Promise<void> {
       core.getInput('maven-options'),
       '-DskipTests',
       `-DaltDeploymentRepository=${localMavenRepo}`,
-      `-DaltReleaseDeploymentRepository=${localMavenRepo}`
+      `-DaltReleaseDeploymentRepository=${localMavenRepo}`,
+      'deploy'
     ])
 
     if (mavenResult !== 0) {
