@@ -28,10 +28,16 @@ async function run(): Promise<void> {
       return
     }
 
+    const refs = github.context.ref.split('/')
+    let artifactName = `${github.context.repo.repo}-${refs[2]}`
+    if (refs[1] !== "tags") {
+      artifactName += `-${github.context.sha}`
+    }
+
     core.info('Uploading results as artifact')
     const uploadResult = await artifact
       .create()
-      .uploadArtifact(`${github.context.repo.repo}-${github.context.sha}`, readFiles(localDir), localDir, {
+      .uploadArtifact(artifactName, readFiles(localDir), localDir, {
         continueOnError: false
       })
 
