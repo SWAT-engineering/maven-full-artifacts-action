@@ -31,7 +31,7 @@ async function run(): Promise<void> {
     core.info('Uploading results as artifact')
     const uploadResult = await artifact
       .create()
-      .uploadArtifact(`${github.context.repo.repo}-${github.context.sha}`, readFiles(localDir), localMavenRepo, {
+      .uploadArtifact(`${github.context.repo.repo}-${github.context.sha}`, readFiles(localDir), localDir, {
         continueOnError: false
       })
 

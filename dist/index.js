@@ -64,7 +64,7 @@ function run() {
             core.info('Uploading results as artifact');
             const uploadResult = yield artifact
                 .create()
-                .uploadArtifact(`${github.context.repo.repo}-${github.context.sha}`, readFiles(localDir), localMavenRepo, {
+                .uploadArtifact(`${github.context.repo.repo}-${github.context.sha}`, readFiles(localDir), localDir, {
                 continueOnError: false
             });
             if (uploadResult.failedItems.length > 0) {
