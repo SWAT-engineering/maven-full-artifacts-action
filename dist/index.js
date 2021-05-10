@@ -56,7 +56,7 @@ function run() {
                 `-DaltDeploymentRepository=${localMavenRepo}`,
                 `-DaltReleaseDeploymentRepository=${localMavenRepo}`,
                 'deploy'
-            ]);
+            ].filter(s => s && s !== ""));
             if (mavenResult !== 0) {
                 core.setFailed(`Maven failed with error: ${mavenResult}`);
                 return;

@@ -11,14 +11,17 @@ async function run(): Promise<void> {
     await io.mkdirP(localDir)
     const localMavenRepo = `local::default::file://${localDir}`
     core.info('Running maven deploy')
-    const mavenResult = await exec('mvn', [
-      '-B',
-      core.getInput('maven-options'),
-      '-DskipTests',
-      `-DaltDeploymentRepository=${localMavenRepo}`,
-      `-DaltReleaseDeploymentRepository=${localMavenRepo}`,
-      'deploy'
-    ])
+    const mavenResult = await exec(
+      'mvn',
+      [
+        '-B',
+        core.getInput('maven-options'),
+        '-DskipTests',
+        `-DaltDeploymentRepository=${localMavenRepo}`,
+        `-DaltReleaseDeploymentRepository=${localMavenRepo}`,
+        'deploy'
+      ].filter(s => s && s !== '')
+    )
 
     if (mavenResult !== 0) {
       core.setFailed(`Maven failed with error: ${mavenResult}`)
