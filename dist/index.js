@@ -56,7 +56,7 @@ function run() {
                 `-DaltDeploymentRepository=${localMavenRepo}`,
                 `-DaltReleaseDeploymentRepository=${localMavenRepo}`,
                 'deploy'
-            ].filter(s => s && s !== ""));
+            ].filter(s => s && s !== ''));
             if (mavenResult !== 0) {
                 core.setFailed(`Maven failed with error: ${mavenResult}`);
                 return;
@@ -64,7 +64,7 @@ function run() {
             core.info('Uploading results as artifact');
             const uploadResult = yield artifact
                 .create()
-                .uploadArtifact(`${github.context.repo.repo}-${github.context.ref}`, readFiles(localDir), localMavenRepo, {
+                .uploadArtifact(`${github.context.repo.repo}-${github.context.sha}`, readFiles(localDir), localMavenRepo, {
                 continueOnError: false
             });
             if (uploadResult.failedItems.length > 0) {
