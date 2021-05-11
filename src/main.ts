@@ -9,7 +9,7 @@ async function run(): Promise<void> {
   try {
     const localDir = `/tmp/artifacts-maven-${github.context.sha}`
     await io.mkdirP(localDir)
-    const localMavenRepo = `local::default::file://${localDir}`
+    const localMavenRepo = `local::file://${localDir}`
     core.info('Running maven deploy')
     const mavenResult = await exec(
       'mvn',
@@ -18,8 +18,8 @@ async function run(): Promise<void> {
         core.getInput('maven-options'),
         '-DskipTests',
         `-DaltDeploymentRepository=${localMavenRepo}`,
-        `-DaltReleaseDeploymentRepository=${localMavenRepo}`,
-        'deploy'
+        'package',
+        'org.apache.maven.plugins:maven-deploy-plugin:3.0.0-M1:deploy'
       ].filter(s => s && s !== '')
     )
 

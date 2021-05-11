@@ -47,15 +47,15 @@ function run() {
         try {
             const localDir = `/tmp/artifacts-maven-${github.context.sha}`;
             yield io.mkdirP(localDir);
-            const localMavenRepo = `local::default::file://${localDir}`;
+            const localMavenRepo = `local::file://${localDir}`;
             core.info('Running maven deploy');
             const mavenResult = yield exec_1.exec('mvn', [
                 '-B',
                 core.getInput('maven-options'),
                 '-DskipTests',
                 `-DaltDeploymentRepository=${localMavenRepo}`,
-                `-DaltReleaseDeploymentRepository=${localMavenRepo}`,
-                'deploy'
+                'package',
+                'org.apache.maven.plugins:maven-deploy-plugin:3.0.0-M1:deploy'
             ].filter(s => s && s !== ''));
             if (mavenResult !== 0) {
                 core.setFailed(`Maven failed with error: ${mavenResult}`);
@@ -63,13 +63,11 @@ function run() {
             }
             const refs = github.context.ref.split('/');
             let artifactName = `${github.context.repo.repo}-${refs[2]}`;
-            if (refs[1] !== "tags") {
+            if (refs[1] !== 'tags') {
                 artifactName += `-${github.context.sha}`;
             }
             core.info('Uploading results as artifact');
-            const uploadResult = yield artifact
-                .create()
-                .uploadArtifact(artifactName, readFiles(localDir), localDir, {
+            const uploadResult = yield artifact.create().uploadArtifact(artifactName, readFiles(localDir), localDir, {
                 continueOnError: false
             });
             if (uploadResult.failedItems.length > 0) {
