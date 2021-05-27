@@ -74,6 +74,7 @@ function run() {
                 throw new Error(`Error uploading artifact, failed files: ${uploadResult.failedItems}`);
             }
             core.info('Finished uploading artifact');
+            core.setOutput('artifact-root-dir', localDir);
         }
         catch (error) {
             core.setFailed(error.message);
