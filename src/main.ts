@@ -4,10 +4,12 @@ import * as io from '@actions/io'
 import * as github from '@actions/github'
 import * as artifact from '@actions/artifact'
 import {lstatSync, readdirSync} from 'fs'
+import path from 'path'
+import os from 'os'
 
 async function run(): Promise<void> {
   try {
-    const localDir = `/tmp/artifacts-maven-${github.context.sha}`
+    const localDir = path.join(process.env.RUNNER_TEMP || os.tmpdir(), github.context.sha)
     await io.mkdirP(localDir)
     const localMavenRepo = `local::file://${localDir}`
     core.info('Running maven deploy')
