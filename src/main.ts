@@ -18,6 +18,7 @@ async function run(): Promise<void> {
       [
         '-B',
         core.getInput('maven-options'),
+        '-Dmaven.test.skip=true',
         '-DskipTests',
         `-DaltDeploymentRepository=${localMavenRepo}`,
         'package',
@@ -46,7 +47,7 @@ async function run(): Promise<void> {
     }
     core.info('Finished uploading artifact')
     core.setOutput('artifact-root-dir', localDir)
-  } catch (error) {
+  } catch (error: any) {
     core.setFailed(error.message)
   }
 }
