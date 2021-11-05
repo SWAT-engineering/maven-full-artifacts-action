@@ -53,9 +53,11 @@ function run() {
             const localDir = path_1.default.join(process.env.RUNNER_TEMP || os_1.default.tmpdir(), github.context.sha);
             yield io.mkdirP(localDir);
             const localMavenRepo = `local::file://${localDir}`;
+            yield (0, exec_1.exec)('mvn', ['-version']);
             core.info('Running maven deploy');
-            const mavenResult = yield exec_1.exec('mvn', [
+            const mavenResult = yield (0, exec_1.exec)('mvn', [
                 '-B',
+                '-X',
                 core.getInput('maven-options'),
                 '-Dmaven.test.skip=true',
                 '-DskipTests',
@@ -89,9 +91,9 @@ function run() {
 }
 function readFiles(dir) {
     const result = [];
-    for (const entry of fs_1.readdirSync(dir)) {
+    for (const entry of (0, fs_1.readdirSync)(dir)) {
         const fullEntry = `${dir}/${entry}`;
-        if (fs_1.lstatSync(fullEntry).isDirectory()) {
+        if ((0, fs_1.lstatSync)(fullEntry).isDirectory()) {
             result.push(...readFiles(fullEntry));
         }
         else {
