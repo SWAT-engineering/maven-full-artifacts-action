@@ -12,11 +12,13 @@ async function run(): Promise<void> {
     const localDir = path.join(process.env.RUNNER_TEMP || os.tmpdir(), github.context.sha)
     await io.mkdirP(localDir)
     const localMavenRepo = `local::file://${localDir}`
+    await exec('mvn', '-version')
     core.info('Running maven deploy')
     const mavenResult = await exec(
       'mvn',
       [
         '-B',
+        '-X',
         core.getInput('maven-options'),
         '-Dmaven.test.skip=true',
         '-DskipTests',
