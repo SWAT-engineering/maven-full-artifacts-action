@@ -12,6 +12,7 @@ async function run(): Promise<void> {
     const localDir = path.join(process.env.RUNNER_TEMP || os.tmpdir(), github.context.sha)
     await io.mkdirP(localDir)
     const localMavenRepo = `local::file://${localDir}`
+    const mavenOptions=core.getInput('maven-options')
     await exec('mvn', ['-version'])
     core.info('Running maven deploy')
     const mavenResult = await exec(
@@ -19,7 +20,7 @@ async function run(): Promise<void> {
       [
         '-B',
         '-X',
-        core.getInput('maven-options'),
+        ...((mavenOptions.constructor === Array) ? mavenOptions : [mavenOptions]),
         '-Dmaven.test.skip=true',
         '-DskipTests',
         `-DaltDeploymentRepository=${localMavenRepo}`,
