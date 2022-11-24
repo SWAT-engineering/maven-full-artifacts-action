@@ -5,7 +5,7 @@ inputs:
   maven-options:
     required: false
     description: 'Extra maven options'
-    default: ''
+    default: []
 runs:
   using: 'node12'
   main: 'dist/index.js'
