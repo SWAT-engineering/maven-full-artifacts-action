@@ -19,7 +19,7 @@ async function run(): Promise<void> {
       [
         '-B',
         '-X',
-        ...(core.getInput('maven-options')),
+        ...(core.getInput('maven-options').split(' ').trim()),
         '-Dmaven.test.skip=true',
         '-DskipTests',
         `-DaltDeploymentRepository=${localMavenRepo}`,
