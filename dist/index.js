@@ -61,7 +61,7 @@ function run() {
             const mavenResult = yield (0, exec_1.exec)('mvn', [
                 '-B',
                 '-X',
-                ...(core.getInput('maven-options')),
+                ...core.getMultilineInput('maven-options'),
                 '-Dmaven.test.skip=true',
                 '-DskipTests',
                 `-DaltDeploymentRepository=${localMavenRepo}`,
