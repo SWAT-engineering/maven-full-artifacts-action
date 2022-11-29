@@ -60,7 +60,6 @@ function run() {
             core.info('Running maven deploy');
             const mavenResult = yield (0, exec_1.exec)('mvn', [
                 '-B',
-                '-X',
                 ...core.getMultilineInput('maven-options'),
                 '-Dmaven.test.skip=true',
                 '-DskipTests',

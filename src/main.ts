@@ -18,7 +18,6 @@ async function run(): Promise<void> {
       'mvn',
       [
         '-B',
-        '-X',
         ...core.getMultilineInput('maven-options'),
         '-Dmaven.test.skip=true',
         '-DskipTests',
