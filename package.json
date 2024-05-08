@@ -5,7 +5,7 @@
   "description": "",
   "main": "lib/main.js",
   "scripts": {
-    "build": "esbuild src/main.ts --platform=node --target=node20 --bundle --sourcemap --outfile=dist/index.js",
+    "build": "esbuild src/main.ts --platform=node --keep-names --target=node20 --bundle --sourcemap --outfile=dist/index.js",
     "format": "prettier --write **/*.ts",
     "format-check": "prettier --check **/*.ts"
   },
