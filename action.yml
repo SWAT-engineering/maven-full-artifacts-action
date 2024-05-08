@@ -7,5 +7,5 @@ inputs:
     description: 'Extra maven options'
     default: ''
 runs:
-  using: 'node16'
+  using: 'node20'
   main: 'dist/index.js'

@@ -5,10 +5,9 @@
   "description": "",
   "main": "lib/main.js",
   "scripts": {
-    "build": "tsc",
+    "build": "esbuild src/main.ts --platform=node --target=node20 --bundle --sourcemap --outfile=dist/index.js",
     "format": "prettier --write **/*.ts",
-    "format-check": "prettier --check **/*.ts",
-    "package": "npx tsc && npx ncc build --source-map --license licenses.txt"
+    "format-check": "prettier --check **/*.ts"
   },
   "repository": {
     "type": "git",
@@ -22,16 +21,18 @@
   "author": "",
   "license": "BSD-2",
   "dependencies": {
-    "@actions/artifact": "^1.1.0",
-    "@actions/core": "^1.10.0",
-    "@actions/exec": "^1.1.0",
-    "@actions/github": "^5.0.0",
-    "@actions/io": "^1.1.0"
+    "@actions/artifact": "2.x",
+    "@actions/core": "1.x",
+    "@actions/exec": "1.x",
+    "@actions/github": "6.x",
+    "@actions/io": "1.x"
   },
   "devDependencies": {
-    "@types/node": "^16.0.0",
-    "@vercel/ncc": "^0.34.0",
-    "prettier": "2.8.0",
-    "typescript": "^4.7.0"
+    "@tsconfig/node20": "20.x",
+    "@tsconfig/strictest": "2.x",
+    "@types/node": "20.x",
+    "esbuild": "0.21.x",
+    "prettier": "3.x",
+    "typescript": "5.x"
   }
 }
