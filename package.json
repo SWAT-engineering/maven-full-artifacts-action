@@ -21,7 +21,7 @@
   "author": "",
   "license": "BSD-2",
   "dependencies": {
-    "@actions/artifact": "2.x",
+    "@actions/artifact": "6.x",
     "@actions/core": "1.x",
     "@actions/exec": "1.x",
     "@actions/github": "6.x",
