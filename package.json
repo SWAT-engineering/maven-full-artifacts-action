@@ -31,7 +31,7 @@
     "@tsconfig/node20": "20.x",
     "@tsconfig/strictest": "2.x",
     "@types/node": "20.x",
-    "esbuild": "0.21.x",
+    "esbuild": "0.25.x",
     "prettier": "3.x",
     "typescript": "5.x"
   }
