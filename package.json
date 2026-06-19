@@ -3,11 +3,14 @@
   "version": "1.0.0",
   "private": true,
   "description": "",
+  "type": "module",
   "main": "lib/main.js",
   "scripts": {
-    "build": "esbuild src/main.ts --platform=node --keep-names --target=node20 --bundle --sourcemap --outfile=dist/index.js",
-    "format": "prettier --write **/*.ts",
-    "format-check": "prettier --check **/*.ts"
+    "check": "npx tsc",
+    "build": "npx esbuild src/main.ts --platform=node --format=esm --keep-names --target=node24 --packages=bundle --bundle --banner:js=\"globalThis.require ??= (await import('node:module')).createRequire(import.meta.url);\" --sourcemap --outfile=dist/index.js  --main-fields=module,main",
+    "package": "npm run build -- --minify",
+    "format": "npx prettier --write **/*.ts",
+    "format-check": "npx prettier --check **/*.ts"
   },
   "repository": {
     "type": "git",
@@ -18,21 +21,27 @@
     "maven",
     "artifacts"
   ],
+  "engines": {"node": ">=24.0.0"},
   "author": "",
   "license": "BSD-2",
   "dependencies": {
     "@actions/artifact": "6.x",
-    "@actions/core": "1.x",
-    "@actions/exec": "1.x",
-    "@actions/github": "6.x",
-    "@actions/io": "1.x"
+    "@actions/core": "3.x",
+    "@actions/exec": "3.x",
+    "@actions/github": "9.x",
+    "@actions/io": "3.x"
   },
   "devDependencies": {
-    "@tsconfig/node20": "20.x",
+    "@tsconfig/node24": "24.x",
     "@tsconfig/strictest": "2.x",
-    "@types/node": "20.x",
+    "@types/node": "24.x",
     "esbuild": "0.28.x",
     "prettier": "3.x",
-    "typescript": "5.x"
+    "typescript": "6.x",
+    "eslint": "8.x",
+    "eslint-config-prettier": "8.x",
+    "eslint-plugin-github": "6.x",
+    "eslint-plugin-prettier": "5.x",
+    "@typescript-eslint/parser": "7.x"
   }
 }

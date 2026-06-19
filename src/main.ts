@@ -3,7 +3,7 @@ import {exec} from '@actions/exec'
 import * as io from '@actions/io'
 import {DefaultArtifactClient} from '@actions/artifact'
 import * as github from '@actions/github'
-import {promises} from 'fs'
+import {readdir} from 'fs/promises'
 import path from 'path'
 import os from 'os'
 
@@ -23,7 +23,7 @@ async function run(): Promise<void> {
         '-DskipTests',
         `-DaltDeploymentRepository=${localMavenRepo}`,
         'package',
-        'org.apache.maven.plugins:maven-deploy-plugin:3.1.2:deploy'
+        'org.apache.maven.plugins:maven-deploy-plugin:3.1.4:deploy'
       ].filter(s => s && s !== '')
     )
 
@@ -51,9 +51,9 @@ async function run(): Promise<void> {
 }
 
 async function allFiles(dir: string): Promise<string[]> {
-  return (await promises.readdir(dir, {recursive: true, withFileTypes: true}))
+  return (await readdir(dir, {recursive: true, withFileTypes: true}))
     .filter(e => e.isFile())
-    .map(e => `${e.path}/${e.name}`)
+    .map(e => `${e.parentPath}/${e.name}`)
 }
 
 run()
