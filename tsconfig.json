@@ -1,13 +1,14 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
   "extends": [
-    "@tsconfig/node20/tsconfig.json",
+    "@tsconfig/node24/tsconfig.json",
     "@tsconfig/strictest/tsconfig.json"
   ],
 
   "compilerOptions": {
     "rootDir": "src",
-    "outDir": "lib"
+    "outDir": "lib",
+    "noEmit": true
   },
   "exclude": ["node_modules", "**/*.test.ts"]
 }
