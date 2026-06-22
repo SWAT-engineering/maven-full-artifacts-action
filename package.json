@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "private": true,
   "description": "",
+  "type": "module",
   "main": "lib/main.js",
   "scripts": {
     "check": "npx tsc",
-    "build": "npx esbuild src/main.ts --platform=node --format=esm --keep-names --target=node24 --packages=bundle --bundle --sourcemap --outfile=dist/index.js  --main-fields=module,main",
+    "build": "npx esbuild src/main.ts --platform=node --format=esm --keep-names --target=node24 --packages=bundle --bundle --sourcemap --banner:js=\"import { createRequire } from 'module'; const require = createRequire(import.meta.url);\"  --outfile=dist/index.js  --main-fields=module,main",
     "package": "npm run build -- --minify",
     "format": "npx prettier --write **/*.ts",
     "format-check": "npx prettier --check **/*.ts"
@@ -20,7 +21,7 @@
     "maven",
     "artifacts"
   ],
-  "engines": {"node": "24"},
+  "engines": {"node": ">=24.0.0"},
   "author": "",
   "license": "BSD-2",
   "dependencies": {
