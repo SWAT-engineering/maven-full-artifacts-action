@@ -7,7 +7,7 @@
   "main": "lib/main.js",
   "scripts": {
     "check": "npx tsc",
-    "build": "npx esbuild src/main.ts --platform=node --format=esm --keep-names --target=node24 --packages=bundle --bundle --sourcemap --banner:js=\"import { createRequire } from 'module'; const require = createRequire(import.meta.url);\"  --outfile=dist/index.js  --main-fields=module,main",
+    "build": "npx esbuild src/main.ts --platform=node --format=esm --keep-names --target=node24 --packages=bundle --bundle --banner:js=\"globalThis.require ??= (await import('node:module')).createRequire(import.meta.url);\" --sourcemap --outfile=dist/index.js  --main-fields=module,main",
     "package": "npm run build -- --minify",
     "format": "npx prettier --write **/*.ts",
     "format-check": "npx prettier --check **/*.ts"
