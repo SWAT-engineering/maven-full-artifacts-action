@@ -100400,7 +100400,7 @@ async function run() {
 }
 __name(run, "run");
 async function allFiles(dir2) {
-  return (await readdir2(dir2, { recursive: true, withFileTypes: true })).filter((e) => e.isFile()).map((e) => `${dir2}/${e.name}`);
+  return (await readdir2(dir2, { recursive: true, withFileTypes: true })).filter((e) => e.isFile()).map((e) => `${e.parentPath}/${e.name}`);
 }
 __name(allFiles, "allFiles");
 run();

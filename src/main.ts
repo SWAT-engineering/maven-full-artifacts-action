@@ -53,7 +53,7 @@ async function run(): Promise<void> {
 async function allFiles(dir: string): Promise<string[]> {
   return (await readdir(dir, {recursive: true, withFileTypes: true}))
     .filter(e => e.isFile())
-    .map(e => `${dir}/${e.name}`)
+    .map(e => `${e.parentPath}/${e.name}`)
 }
 
 run()
